@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Identificación
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form #form="ngForm" [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="login-container">
+      <ion-item>
+        <ion-label position="stacked">Usuario</ion-label>
+        <ion-input formControlName="username"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+
+      <br />
+  
+      <ion-button type="submit" [disabled]="loginForm.invalid">
+        Iniciar sesión
+        <ion-icon slot="end" name="key"></ion-icon>
+      </ion-button>
+  
+      <br />
+
+      <div class="new-account">Crear una cuenta nueva</div>
+
+      <br />
+  
+      <ion-icon class="chat-icon" name="chatbubbles"></ion-icon>
+  
+    </div>
+  </form>
+
+</ion-content>
