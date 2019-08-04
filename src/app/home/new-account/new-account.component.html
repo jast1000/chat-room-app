@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Nueva cuenta
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="exit()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+
+  <form #form="ngForm" [formGroup]="accountForm" (ngSubmit)="save()">
+    <div class="account-container">
+      <ion-item>
+        <ion-label position="stacked">Nombre completo</ion-label>
+        <ion-input formControlName="fullName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Correo electrónico</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+        <ion-icon name="checkmark-circle" slot="end" [ngStyle]="
+        {'color': accountForm.controls.email.invalid && !accountForm.controls.email.untouched ? '#f04141' : 
+        (accountForm.controls.email.valid && !accountForm.controls.email.untouched ? '#10dc60' : null)
+        }"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Usuario</ion-label>
+        <ion-input formControlName="username"></ion-input>
+        <ion-icon name="checkmark-circle" slot="end" [ngStyle]="
+        {'color': accountForm.controls.username.invalid && !accountForm.controls.username.untouched ? '#f04141' : 
+        (accountForm.controls.username.valid && !accountForm.controls.username.untouched ? '#10dc60' : null)
+        }"></ion-icon>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+
+      <br />
+
+      <ion-button type="submit" [disabled]="accountForm.invalid">
+        Crear cuenta
+      </ion-button>  
+    </div>
+  </form>
+
+</ion-content>

@@ -20,9 +20,4 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() { }
 
-  openMenu() {
-    this.menuController.enable(true, 'first');
-    this.menuController.open('first');
-  }
-
 }

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
+import { NewAccountComponent } from './new-account/new-account.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -21,6 +22,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     ]),
     ReactiveFormsModule
   ],
-  declarations: [HomePage]
+  declarations: [
+    HomePage,
+    NewAccountComponent
+  ],
+  entryComponents: [
+    NewAccountComponent
+  ]
 })
 export class HomePageModule {}

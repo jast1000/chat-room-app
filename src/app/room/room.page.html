@@ -1,9 +1,41 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>room</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="appMenu"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Salas</ion-title>
+
+    <ion-buttons slot="end">
+        <ion-button fill="clear" (click)="createChatRoom()">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+        
+    <ion-item-sliding *ngFor="let chatRoom of chatRooms" (click)="openChatRoom(chatRoom.id)">
+      <ion-item>
+        <ion-label text-wrap>
+          <ion-text>
+            <h3>{{ chatRoom.name }}</h3>
+          </ion-text>
+          <p>{{ chatRoom.description }}</p>
+        </ion-label>
+      </ion-item>
+  
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deleteChatRoom(chatRoom.id)">Eliminar</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
 
 </ion-content>

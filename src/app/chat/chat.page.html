@@ -1,9 +1,63 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>chat</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>{{ chatRoom.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
+<ion-content #chat [scrollEvents]="true">
+
+  <ion-grid>
+    <!-- Iterar los mensajes -->
+    <ion-row *ngFor="let message of messagesO | async">
+
+      <!-- Mensaje del remitente-->
+      <ion-col size="9"
+        *ngIf="message.userId !== user.id" 
+        class="message"
+        [ngClass]="{'my_message': message.userId === user.id, 'other_message': message.userId !== user.id}">
+
+        <span class="user_name">{{ message.username }} - {{ message.created | date: 'dd/MM/yy hh:MM' }}</span><br>
+        <span>{{ message.text }}</span>
+      </ion-col>
+
+      <!-- Mensaje del destinatario -->
+      <ion-col offset="3" size="9" 
+        *ngIf="message.userId === user.id" 
+        class="message"
+        [ngClass]="{'my_message': message.userId === user.id, 'other_message': message.userId !== user.id}">
+
+        <span class="user_name">{{ message.username }} - {{message.created | date: 'dd/MM/yy hh:MM'}} </span><br>
+        <span>{{ message.text }}</span>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <!-- Area de mensaje de texto  -->
+    <ion-row class="message_row">
+
+      <!-- Mensaje -->
+      <ion-col size="9">
+        <ion-item no-lines>
+          <ion-input type="text" placeholder="Mensaje" [(ngModel)]="message"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <!-- Boton de envio -->
+      <ion-col class="col-button-send">
+        <ion-button fill="clear" (click)="sendMessage()">
+            <ion-icon name="send" size="large"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

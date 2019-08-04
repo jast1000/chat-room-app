@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthenticationService } from '../services/authentication.service';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ModalController, ToastController } from '@ionic/angular';
+import { NewAccountComponent } from './new-account/new-account.component';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ export class HomePage implements OnInit {
     private fb: FormBuilder,
     private authSrv: AuthenticationService,
     private loadingCtrl: LoadingController,
+    private modalCtrl: ModalController,
     private toastCtrl: ToastController
   ) {
     this.loginForm = this.fb.group( {
@@ -31,7 +33,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     const user = this.authSrv.getCurrentUser();
     if (user) {
-      this.router.navigate(['profile']);
+      this.router.navigate(['room']);
     }
   }
 
@@ -43,7 +45,9 @@ export class HomePage implements OnInit {
     try {
       await this.authSrv.login(credential);
       loading.dismiss();
-      this.router.navigate(['profile']);
+      this.loginForm.reset();
+      
+      this.router.navigate(['room']);
     } catch (ex) {
       loading.dismiss();
 
@@ -54,8 +58,11 @@ export class HomePage implements OnInit {
       const toast = await this.toastCtrl.create({message, duration: 4000})
       await toast.present();
     }
-    
-    
+  }
+
+  async createAccount() {
+    const modal = await this.modalCtrl.create({ component: NewAccountComponent});
+    await modal.present();
   }
 
 }
