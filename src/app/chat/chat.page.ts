@@ -21,8 +21,7 @@ export class ChatPage implements OnInit {
 
   user: any;
   chatRoom: any = {};
-  messages: any[] = [];
-  messagesO: Observable<any>;
+  messages: Observable<any>;
   message: string = '';
 
   constructor(
@@ -37,8 +36,8 @@ export class ChatPage implements OnInit {
 
   async ngOnInit() {
     this.chatRoom = await this.chatRoomSrv.getChatRoom(this.chatRoomId);
-    this.messagesO = this.chatSrv.getMessages(this.chatRoomId);
-    this.chatSubscription = this.messagesO.subscribe(() => {
+    this.messages = this.chatSrv.getMessages(this.chatRoomId);
+    this.chatSubscription = this.messages.subscribe(() => {
       setTimeout(() => this.chat.scrollToBottom(0), 100);
     });
   }

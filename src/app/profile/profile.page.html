@@ -3,7 +3,14 @@
     <ion-buttons slot="start">
       <ion-menu-button menu="appMenu"></ion-menu-button>
     </ion-buttons>
+
     <ion-title>Mi perfil</ion-title>
+    
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="openMenu($event)">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -12,14 +19,15 @@
     <ion-row>
       <ion-col>
         <ion-avatar>
-          <img src="assets/img/avatar.png">
+          <img *ngIf="!user.avatar" src="assets/img/avatar.png">
+          <img *ngIf="user.avatar" [src]="user.avatar">
         </ion-avatar>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col>
-        {{ user.fullName }}
+        <strong>{{ user.fullName }}</strong>
       </ion-col>
     </ion-row>
     
@@ -28,7 +36,6 @@
         {{ user.email }}
       </ion-col>
     </ion-row>
-
   </ion-grid>
 
 </ion-content>
